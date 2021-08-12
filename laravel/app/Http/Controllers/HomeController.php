@@ -32,7 +32,14 @@ class HomeController extends Controller
 
         return view('create', compact('tags'));
     }
+    
 
+    /**
+     * 新規メモ作成時の処理
+     *
+     * @param Request $request
+     * @return redirect(ホーム画面に戻る)
+     */
     public function store(Request $request)
     {
         $posts = $request->all();
@@ -62,7 +69,12 @@ class HomeController extends Controller
 
         return redirect( route('home') );
     }
-
+    /**
+     * メモ一覧画面からメモ編集画面への移行処理
+     *
+     * @param array  $id 
+     * @return 複数の配列をedit.blade.phpに送信
+     */
     public function edit($id)
     {
         $edit_memo = Memo::select('memos.*', 'tags.id AS tag_id')
@@ -83,6 +95,12 @@ class HomeController extends Controller
         return view('edit', compact('edit_memo', 'include_tags', 'tags'));
     }
 
+    /**
+     * メモ編集時の処理
+     *
+     * @param Request $request
+     * @return redirect(ホーム画面に戻る)
+     */
     public function update(Request $request)
     {
         $posts = $request->all();
@@ -112,11 +130,16 @@ class HomeController extends Controller
         return redirect( route('home') );
     }
 
+    /**
+     * メモを論理削除するための処理
+     *
+     * @param Request $request
+     * @return redirect(ホーム画面に戻る)
+     */
     public function destory(Request $request)
     {
         $posts = $request->all();
-        
-        
+
         // Memo::where('id', $posts['memo_id'])->delete();⇦これをやると物理削除
         Memo::where('id', $posts['memo_id'])->update(['deleted_at' => date("Y-m-d H:i:s", time())]);
         

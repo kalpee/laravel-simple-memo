@@ -9,6 +9,11 @@ class Memo extends Model
 {
     use HasFactory;
 
+    /** 自分が書いたメモのデータを取得
+     *  もしクエリパラメータtagがあればタグで絞り込み
+     * 
+     * @return $memos
+     */
     public function getMyMemo(){
         $query_tag = \Request::query('tag');
         // ======ベースのメソッド=======
