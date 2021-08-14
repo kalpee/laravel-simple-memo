@@ -24,7 +24,7 @@ class Memo extends Model
         // ======ベースのメソッドここまで=======
 
         //　もしクエリパラメータtagがあればタグで絞り込み
-        if( !empty($query_tag) ){
+        if ( !empty($query_tag) ) {
             $query->leftJoin('memo_tags', 'memo_tags.memo_id', '=', 'memos.id')
                 ->where('memo_tags.tag_id', '=', $query_tag);
         }
