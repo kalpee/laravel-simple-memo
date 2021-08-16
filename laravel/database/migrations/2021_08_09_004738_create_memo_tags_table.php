@@ -7,18 +7,18 @@ use Illuminate\Support\Facades\Schema;
 class CreateMemoTagsTable extends Migration
 {
     /**
-     * Run the migrations.
+     * メモとタグを紐づけるための中間テーブル
      *
      * @return void
      */
     public function up()
     {
         Schema::create('memo_tags', function (Blueprint $table) {
-            $table->unsignedBigInteger('memo_id');
-            $table->unsignedBigInteger('tag_id');
+            $table->unsignedBigInteger('memo_id')->comment('メモID');
+            $table->unsignedBigInteger('tag_id')->comment('タグID');
 
-            $table->foreign('memo_id')->references('id')->on('memos');
-            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->foreign('memo_id')->references('id')->on('memos')->comment('検索');
+            $table->foreign('tag_id')->references('id')->on('tags')->comment('検索');
         });
     }
 

@@ -9,6 +9,11 @@ class Memo extends Model
 {
     use HasFactory;
 
+    /** 自分が書いたメモのデータを取得
+     *  もしクエリパラメータtagがあればタグで絞り込み
+     * 
+     * @return $memos
+     */
     public function getMyMemo(){
         $query_tag = \Request::query('tag');
         // ======ベースのメソッド=======
@@ -19,7 +24,7 @@ class Memo extends Model
         // ======ベースのメソッドここまで=======
 
         //　もしクエリパラメータtagがあればタグで絞り込み
-        if( !empty($query_tag) ){
+        if ( !empty($query_tag) ) {
             $query->leftJoin('memo_tags', 'memo_tags.memo_id', '=', 'memos.id')
                 ->where('memo_tags.tag_id', '=', $query_tag);
         }
